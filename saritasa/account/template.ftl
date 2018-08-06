@@ -9,7 +9,13 @@
     <meta name="author" content="RomanCherednikov">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>${msg("accountManagementTitle")}</title>
+    <title>
+      <#if properties.logoText?has_content>
+        ${properties.logoText}
+      <#else>
+        SSO
+      </#if>
+    </title>
     <link rel="icon" href="${url.resourcesPath}/img/favicon.ico">
     <#if properties.styles?has_content>
         <#list properties.styles?split(' ') as style>
