@@ -23,11 +23,9 @@
 
 <#macro drawAppList groupName collapsed="true">
   <div class="card">
-    <div class="card-header" id="heading-${groupName}">
+    <div class="card-header <#if collapsed == "true"> collapsed</#if>" id="heading-${groupName}" data-toggle="collapse" data-target="#collapse-${groupName}" aria-expanded="${collapsed}" aria-controls="collapse-${groupName}">
       <h5 class="mb-0">
-        <button class="btn btn-link <#if collapsed == "true"> collapsed</#if>" type="button" data-toggle="collapse" data-target="#collapse-${groupName}" aria-expanded="${collapsed}" aria-controls="collapse-${groupName}">
-          <b>${groupName}</b>
-        </button>
+        <b class="text-primary">${groupName}</b>
       </h5>
     </div>
     <div id="collapse-${groupName}" class="collapse<#if collapsed == "false"> show</#if>"  aria-labelledby="headingOne" data-parent="#appAccordion">
