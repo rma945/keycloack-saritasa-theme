@@ -35,7 +35,7 @@
         <!-- draw application buttons start -->
         <div class="row mx-5">
             <#list appDict[groupName] as app>
-              <#if app.client.description?has_content && app.client.description != 'hide'>
+              <#if app.client.description?has_content && app.client.description?contains('hide')>
               <#else>
                 <#if app.client.name?has_content>
                   <#local AppName = app.client.name>
@@ -58,12 +58,14 @@
 
                 <div class="col-md-3 my-2" data-toggle="app-popover" data-trigger="hover" title="<b>${AppName}</b>" data-content=
                 "
-                <#list app.realmRolesAvailable as role>
-                  <#if role.description??>
-                    ${advancedMsg(role.description)}<br>
-                  <#else>
-                    ${advancedMsg(role.name)}<br>
-                  </#if>
+                <#list app.resourceRolesAvailable?keys as resource>
+                    <#list app.resourceRolesAvailable[resource] as clientRole>
+                        <#if clientRole.roleDescription??>
+                          ${advancedMsg(clientRole.roleDescription)}<br>
+                        <#else>
+                          ${advancedMsg(clientRole.roleName)}<br>
+                        </#if>
+                    </#list>
                 </#list>
                 ">
                   <a target="_blank" rel="noopener noreferrer" href="${app.effectiveUrl}">
@@ -88,10 +90,10 @@
   <#global appDict = createAppList(applications.applications)>
 
   <div class="accordion" id="appAccordion">
-    <#if properties.mainApp?has_content && appDict[properties.mainApp]??>
+    <#if properties.mainApp?has_content && appDict[properties.mainApp]?has_content>
       <@drawAppList groupName=properties.mainApp collapsed="false"/>
     </#if>
-    <#if appDict['Other']??>
+    <#if appDict['Other']?has_content>
       <@drawAppList groupName="Other" collapsed="true"/>
     </#if>
 
