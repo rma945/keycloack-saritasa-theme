@@ -4,10 +4,9 @@ Custom theme for a [Keycloak](https://www.keycloak.org) that provide a simple da
 **Features:**
 * Application groups
 * Application icons
+* [saml2aws](https://github.com/Versent/saml2aws) integraion
 * Default Applications group
 * Hide unused applications
-
-
 
 
 ### Application groups
@@ -28,6 +27,10 @@ Create a new application with any name line "My GitHub SSO" and place icon named
 saritasa/account/resources/icon/
 ```
 
+### saml2aws integraion
+Adding quick configuration for issuing a temporary AWS Cli credentials throught [saml2aws](https://github.com/Versent/saml2aws)
+
+
 ### Default Applications group
 Change **mainApp** variable in  **saritasa/account/theme.properties** to your main application group name, and this group will be always at first place in dashboard.
 
@@ -43,3 +46,7 @@ Now, by default Client Roles prints by Description instead Name, because if you 
 #### Preview
 
 ![theme-preview](https://github.com/rma945/keycloack-saritasa-theme/raw/develop/.assets/preview.png)
+
+#### Preview
+
+![saml2aws-preview](https://github.com/rma945/keycloack-saritasa-theme/raw/develop/.assets/saml2aws.png)
