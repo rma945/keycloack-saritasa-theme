@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-md-10">
-        <h2>${msg("sessionsHtmlTitle")}</h2>
+        <h2>Sessions</h2>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
 
     <form action="${url.sessionsUrl}" method="post">
       <input type="hidden" id="stateChecker" name="stateChecker" value="${stateChecker}">
-      <button id="logout-all-sessions" class="btn btn-primary">${msg("doLogOutAllSessions")}</button>
+      <button id="logout-all-sessions" class="btn btn-primary">Close all sessions</button>
     </form>
 
   </@layout.mainLayout>

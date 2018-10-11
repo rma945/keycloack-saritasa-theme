@@ -4,9 +4,9 @@ Custom theme for a [Keycloak](https://www.keycloak.org) that provide a simple da
 **Features:**
 * Application groups
 * Application icons
-* [saml2aws](https://github.com/Versent/saml2aws) integraion
-* Default Applications group
+* Hide applications for users without assigned roles
 * Hide unused applications
+* [saml2aws](https://github.com/Versent/saml2aws) integraion
 
 
 ### Application groups
@@ -16,7 +16,7 @@ Applications automatically groups by Application name prefix. So if you create 2
 MyCompany-{appname}
 ```
 
-and it will be placed in same group
+it will be placed in same group **MyCompany**
 
 
 ### Application icons
@@ -26,6 +26,8 @@ Create a new application with any name line "My GitHub SSO" and place icon named
 ```
 saritasa/account/resources/icon/
 ```
+Then, add icon name to **appIcons** list value in a **saritasa/account/theme.properties** and all you applications that contains **github** in name - will be displayed with this icon.
+
 
 ### saml2aws integraion
 Adding quick configuration for issuing a temporary AWS Cli credentials throught [saml2aws](https://github.com/Versent/saml2aws)
@@ -35,9 +37,13 @@ Adding quick configuration for issuing a temporary AWS Cli credentials throught 
 Change **mainApp** variable in  **saritasa/account/theme.properties** to your main application group name, and this group will be always at first place in dashboard.
 
 
+### Hide application for users without assigned roles
+
+If you don't want to show applications to a users that don't have access to this apps - you can enable **hideAppWithoutRoles=true** parameter in **saritasa/account/theme.properties** file. And after that, user will see application, only if his have assigned role for this app.
+
 ### Hide unused application
 
-Add **hide** word in client description field and this application will not show in applications dashboard.
+If you need to a hide specific application - add **hide** word in client description field and this application will not show in applications dashboard.
 
 ### Other changes
 

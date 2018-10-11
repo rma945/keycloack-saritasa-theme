@@ -45,11 +45,18 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown px-5">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Menu
+            <#if account.firstName!?has_content && account.lastName!?has_content>
+              ${(account.firstName)}${(account.lastName)}
+            <#else>
+              ${(account.username!'')}
+            </#if>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
             <a class="dropdown-item" href="${url.applicationsUrl}">Applications</a>
+            <#if features.passwordUpdateSupported>
+              <a class="dropdown-item" href="${url.passwordUrl}">Password</a>
+            </#if>
             <#if realm.userManagedAccessAllowed && features.authorization>
               <a class="dropdown-item" href="${url.resourceUrl}">Resources</a>
             </#if>

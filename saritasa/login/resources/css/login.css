@@ -1,4 +1,11 @@
-body#login-body{ background-image:url("../img/background.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
+body {
+  height: 98%;
+  background: rgb(111,89,110);
+  background: -moz-linear-gradient(-45deg, rgba(111,89,110,1) 0%, rgba(221,185,170,1) 43%, rgba(221,185,170,1) 43%, rgba(226,184,165,1) 50%, rgba(224,178,159,1) 55%, rgba(162,108,128,1) 89%, rgba(125,92,115,1) 100%);
+  background: -webkit-linear-gradient(-45deg, rgba(111,89,110,1) 0%,rgba(221,185,170,1) 43%,rgba(221,185,170,1) 43%,rgba(226,184,165,1) 50%,rgba(224,178,159,1) 55%,rgba(162,108,128,1) 89%,rgba(125,92,115,1) 100%);
+  background: linear-gradient(135deg, rgba(111,89,110,1) 0%,rgba(221,185,170,1) 43%,rgba(221,185,170,1) 43%,rgba(226,184,165,1) 50%,rgba(224,178,159,1) 55%,rgba(162,108,128,1) 89%,rgba(125,92,115,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6f596e', endColorstr='#7d5c73',GradientType=1 );
+}
 
 .center-block { display: table; margin: 10 auto;}
 .form-heading { color:#fff; font-size:23px;}

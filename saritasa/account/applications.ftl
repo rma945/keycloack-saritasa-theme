@@ -1,20 +1,25 @@
 <#import "template.ftl" as layout>
 
+<!--  TODO: rewrite this function with #continue on FreeMarker >= 2.3.27 -->
 <#function createAppList appList>
   <#local result={"Other": []}>
   <#list applications.applications as application>
-    <#if application.effectiveUrl?has_content>
-      <#if application.client.name?has_content && application.client.name?contains(" ")>
-        <#local groupName = application.client.name?keep_before(" ")>
-        <#if !result[groupName]??>
-          <#local result = result + { groupName:  [application]}>
-        <#else>
-          <#local appList = result[groupName] + [application] >
-          <#local result = result + { groupName:  appList}>
+    <#if properties.hideAppWithoutRoles == "false" || application.realmRolesAvailable?has_content || application.resourceRolesAvailable?has_content || application.client.clientId == 'security-admin-console'>
+      <#if !application.client.description!?contains('hide')>
+        <#if application.effectiveUrl?has_content>
+          <#if application.client.name!?contains(" ")>
+            <#local groupName = application.client.name?keep_before(" ")>
+            <#if !result[groupName]??>
+              <#local result = result + { groupName:  [application]}>
+            <#else>
+              <#local appList = result[groupName] + [application] >
+              <#local result = result + { groupName:  appList}>
+            </#if>
+          <#else>
+            <#local appList = result["Other"] + [application]>
+            <#local result = result + { "Other": appList}>
+          </#if>
         </#if>
-      <#else>
-        <#local appList = result["Other"] + [application]>
-        <#local result = result + { "Other": appList}>
       </#if>
     </#if>
   </#list>
@@ -33,25 +38,17 @@
         <!-- draw application buttons start -->
         <div class="row mx-5">
             <#list appDict[groupName] as app>
-              <#if app.client.description?has_content && app.client.description?contains('hide')>
-              <#else>
                 <#if app.client.name?has_content>
                   <#local AppName = app.client.name>
+                  <#local icon = 'default.png'>
                   <#local tmpAppName = app.client.name?lower_case>
-                  <#if tmpAppName?contains("aws")>
-                    <#local icon = 'aws.png'>
-                  <#elseif tmpAppName?contains("vpository")>
-                    <#local icon = 'vpository.png'>
-                  <#elseif tmpAppName?contains("keycloak")>
-                    <#local icon = 'keycloak.png'>
-                  <#elseif tmpAppName?contains("jenkins")>
-                    <#local icon = 'jenkins.png'>
-                  <#else>
-                    <#local icon = 'default.png'>
-                  </#if>
+                  <#list properties.appIcons?split(' ') as icon>
+                    <#if tmpAppName?contains(icon)>
+                      <#local icon = icon + '.png'>
+                    </#if>
+                  </#list>
                 <#else>
                   <#local AppName = app.client.clientId>
-                  <#local icon = 'default.png'>
                 </#if>
 
                 <div class="col-md-3 my-2"
@@ -89,7 +86,7 @@
                   </div>
                   <!-- card end -->
                 </div>
-              </#if>
+
             </#list>
         </div>
         <!-- draw application buttons end -->
@@ -109,7 +106,7 @@
       <@drawAppList groupName="Other" collapsed="true"/>
     </#if>
 
-    <#list appDict?keys as groupName>
+    <#list appDict?keys?sort as groupName>
       <#if properties.mainApp?has_content && groupName == properties.mainApp>
         <!-- stupid skip action -->
       <#elseif groupName == "Other">

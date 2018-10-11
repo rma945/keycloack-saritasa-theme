@@ -36,6 +36,15 @@
         <div class="panel">
           <p>Please enter your LDAP credentials</p>
         </div>
+        <#if message?has_content>
+          <div class="alert
+          <#if message.type = 'success'>alert-success</#if>
+          <#if message.type = 'warning'>alert-warning</#if>
+          <#if message.type = 'error'>alert-danger</#if>
+          <#if message.type = 'info'>alert-info</#if>
+          "
+          role="alert">${message.summary?no_esc}</div>
+        </#if>
         <form id="Login" action="${url.loginAction}" method="post">
           <div class="form-group">
             <input class="form-control" name="username" id="username" placeholder="Username">
@@ -43,6 +52,13 @@
           <div class="form-group">
             <input type="password" name="password" class="form-control" id="password" placeholder="Password">
           </div>
+          <#if realm.rememberMe && !usernameEditDisabled??>
+            <div class="float-left">
+              <label>
+                <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" <#if login.rememberMe??>checked</#if>> Remember me
+              </label>
+            </div>
+          </#if>
           <button type="submit" class="btn btn-primary">Login</button>
         </form>
       </div>
